@@ -2,7 +2,7 @@
 {% from 'bootstrap/pagination.html' import render_pagination %}
 {% from 'macros.html' import photo_card with context %}
 {% from 'macros.html' import app_card,app_page  %}
-
+{% from 'macros.html' import render_page_data  %}
 
 {% block title %}Home{% endblock %}
 
@@ -125,7 +125,7 @@
 
             </table>
             {% if pagination != [] %}
-            <div style="margin-left: 41%;margin-top: 10%;" >{{ render_pagination(pagination) }}</div>
+            <div style="position: absolute;top:43em;left: 49%" >{{ render_page_data(pagination,'main.apps_BySecond',data={'first_id':first_category_id,'second_id':second_category_id,'system':system}) }}</div>
             {% endif %}
         </div>
     </li>
@@ -165,4 +165,55 @@
 
 {% block SelfJs %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/Par_MainIndex.js') }}"></script>
+{% endblock %}
+
+{% block footing %}
+<main>
+<div style="position: absolute;top: 84%;width: 100%">
+    <div id="footbar" style="border-top: 2px solid #8E44AD;">
+  <ul>
+    <li>
+      <p class="first">网站声明</p>
+      ①本站所有资源均出自网络，资源均为网友上传收集，仅供学习。若侵犯您的版权，请及时通知我们改正。②为确保可靠和版权，本站大部分软件都经过检查，但不保证资源的准确、安全和完整性;请自行检查，同时亦不承担用户因使用造成的任何后果。③未经许可任何人不得盗链本站资源或仿造本站或建立镜像，我们对自行开发的所有内容拥有全部版权，任何人不得侵害和擅自使用。</li>
+    <li>
+      <p class="second">栏目导航</p>
+      <ul>
+        <li><a href="#">资源反馈</a></li><li><a href="/">软件需求</a></li><li><a href="#">广告合作</a></li><li><a href="">技术文档</a></li><li><a href="">今日推荐</a></li><li><a href="#">福利吧</a></li></ul>
+    </li>
+    <li>
+      <p class="third">合作伙伴</p>
+      <ul>
+          <li><a href="#">百度搜索</a></li>                <li><a href="#">搜狗搜索</a></li>                <li><a href="#">谷歌搜索</a></li>                <li><a href="#">必应</a></li>               </ul>
+    <li>
+      <p class="fourth">联系我们</p>
+      <img src="{{ url_for('static',filename='images/about_mine.jpg') }}" width="175" height="175" alt="app"></li>
+  </ul>
+</div>
+<footer style="border-top: 1px solid ;background-image: url('{{ url_for('static',filename='images/footbg.jpg') }}'); background-repeat: repeat;" class="footer">
+  <div class="footer-inner">
+    <div class="fooert copyright" align="center"><a href="#" target="_blank">手机访问</a> | <a  href="#" target="_blank">广告合作</a> | <a href="#" target="_blank">关于我们</a> | <a href="/" target="_blank">联系我们</a> | <a href="#" rel="sitemap">sitemap</a>
+    <style>
+	 .qqanimate{display:block;position:fixed;left:150px;bottom:130px;z-index:9999999;}
+	 </style>
+	 </p><a href="{{ url_for('main.index') }}" title="积木猿">新纪猿</a> 版权所有，保留一切权利 ! Theme <a href="{{ url_for('main.index') }}">首页</a> © 2020-2021 · 粤ICP备00000001号
+    </div>
+  </div>
+</footer>
+    <div class="container" style="">
+            <footer>
+                <p class="float-left">
+                    <small style="font-size: 1.1em">&copy; 2020
+                        <a href="#" title="Written by Marc">MingMing</a> -
+                        <a href="#" title="Fork me on GitHub">GitHub</a> -
+                        <a href="#" title="A studie project">Software Sharing</a>
+                    </small>
+                </p>
+                <p class="float-right">
+                    <small style="font-size: 1.1em">Capture and share every wonderful moment.</small>
+                </p>
+            </footer>
+    </div>
+</div>
+</main>
+
 {% endblock %}
