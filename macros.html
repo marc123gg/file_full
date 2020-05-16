@@ -1,0 +1,141 @@
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% macro photo_card(photo) %}
+    <div class="photo-card card">
+        <a class="card-thumbnail" href="{{ url_for('main.show_photo', photo_id=photo.id) }}">
+            <img class="card-img-top portrait" src="{{ url_for('main.get_image', filename=photo.filename_s) }}">
+        </a>
+        <div class="card-body">
+            <span class="oi oi-star"></span> {{ photo.collectors|length }}
+            <span class="oi oi-comment-square"></span> {{ photo.comments|length }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro author_card(author) %}
+    <div class="user-card text-center">
+        <h5>{{ author.name }}</h5>
+        软件：
+        <a href="#">
+            {{ author.apps|length }}
+        </a>
+    </div>
+{% endmacro %}
+
+{% macro follow_area(user) %}
+    {% if current_user.is_authenticated %}
+        {% if user != current_user %}
+            {% if current_user.is_following(user) %}
+                <form class="inline" method="post"
+                      action="{{ url_for('user.unfollow', username=user.username, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-dark btn-sm">Unfollow</button>
+                    {% if current_user.is_followed_by(user) %}
+                        <p class="badge badge-light">Follow each other</p>
+                    {% endif %}
+                </form>
+            {% else %}
+                <form class="inline" method="post"
+                      action="{{ url_for('user.follow', username=user.username, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-primary btn-sm">Follow</button>
+                    {% if current_user.is_followed_by(user) %}
+                        <p class="badge badge-light">Follows you</p>
+                    {% endif %}
+                </form>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <form class="inline" method="post"
+              action="{{ url_for('user.follow', username=user.username) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-primary btn-sm">Follow</button>
+        </form>
+    {% endif %}
+{% endmacro %}
+
+{% macro app_card(app) %}
+    <a onclick="window.open('{{ url_for('main.show_app',app_id=app.id) }}')" style="color: #6b6b6b;text-decoration: none;" href="#">
+    <div style="background-color:#F0F0F0;">
+        <h4>{{ app.name}}</h4>
+            <img style="width: 3.5em;height: 3.5em;" src="{{ app.icon_url }}"><strong>{{ app.simple_say }}</strong>
+    </div>
+    </a>
+{% endmacro %}
+
+
+{% macro app_page(apps) %}
+    <div class="choise-app-items" data-categoryId="{{ category_id }}">
+        {% if apps %}
+            {% for app in apps %}
+                {{ app_card(app) }}
+            {% endfor %}
+
+
+        {% else %}
+            <p class="tip">暂未收录</p>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro render_page_data(page_data,page_function,data={}) %}
+  <div class="pagination">
+    <ul class="pagination" style="font-size: 1.5em">
+        {% if not page_data.has_prev %}<li class="page-item disabled"><a href="{{ url_for(page_function,page = page_data.prev_num) }}" class="page-link">«</a></li>{% else %}<li onclick="$.ajax({
+          type: 'GET',
+          beforeSend: function(){
+            $('#loader').show();
+
+          },
+          url: {% if data == {} %}'{{ url_for(page_function,page = page_data.prev_num) }}'{% else %}'{{ url_for(page_function,page = page_data.prev_num) }}&{% for k,v in data.items() %}{{ '%s=%s' %(k,v) }}&{% endfor %}'{% endif %},
+          success: function (data) {
+                $('#main-changeBy-ajax').html(data)
+          },
+          complete:function(){
+                $('#loader').hide();
+          }
+        })"><a href="#" class="page-link">«</a></li>
+              {% endif %}
+       {% for page in page_data.iter_pages() %}
+        {% if page %}
+          {% if page !=page_data.page %}
+                    <li onclick="$.ajax({
+          type: 'GET',
+          beforeSend: function(){
+            $('#loader').show();
+
+          },
+          url: {% if data == {} %}'{{ url_for(page_function,page = page) }}'{% else %}'{{ url_for(page_function,page = page) }}&{% for k,v in data.items() %}{{ '%s=%s' %(k,v) }}&{% endfor %}'{% endif %},
+          success: function (data) {
+                $('#main-changeBy-ajax').html(data)
+          },
+          complete:function(){
+                $('#loader').hide();
+          }
+        })"><a href="#" class="page-link">{{ page }}</a></li>
+          {% else %}
+            <li class="active" style="color: #72b572"><a href="#" class="page-link">{{ page }}</a></li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+        {% if not page_data.has_next %}<li class="page-item disabled"><a href="{{ url_for(page_function,page = page_data.next_num) }}" class="page-link">»</a></li>{% else %}<li onclick="$.ajax({
+          type: 'GET',
+          beforeSend: function(){
+            $('#loader').show();
+
+          },
+          url: {% if data == {} %}'{{ url_for(page_function,page = page_data.next_num) }}'{% else %}'{{ url_for(page_function,page = page_data.next_num) }}&{% for k,v in data.items() %}{{ '%s=%s' %(k,v) }}&{% endfor %}'{% endif %},
+          success: function (data) {
+                $('#main-changeBy-ajax').html(data)
+          },
+          complete:function(){
+                $('#loader').hide();
+          }
+        })"><a href="#" class="page-link">»</a></li>
+              {% endif %}
+
+    </ul>
+  </div>
+{% endmacro %}
+
