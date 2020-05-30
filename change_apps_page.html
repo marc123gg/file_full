@@ -1,68 +1,42 @@
-{% from 'macros.html' import render_page_data  %}
-{% from 'bootstrap/pagination.html' import render_pagination %}
-<table id="second-table" filter="{{ filter }}" second_id="{{ second_category_id }}" border="0" width="100%" rules=none style="background-color: #FFFFFF;table-layout:fixed">
-                {% if apps !=[] %}
-                    {% if 0 < apps|length < 4 %}
-                        <tr style="width: 100%">
-                            {% for app in apps %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                    {% endif %}
-                    {% if 3 < apps|length < 7 %}
-                        <tr style="width: 100%">
-                            {% for app in apps[:3] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                        <tr style="width: 100%">
-                            {% for app in apps[3:] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                    {% endif %}
-                    {% if 6 < apps|length < 10 %}
-                        <tr style="width: 100%">
-                            {% for app in apps[:3] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                        <tr style="width: 100%">
-                            {% for app in apps[3:6] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                         <tr style="width: 100%">
-                            {% for app in apps[6:] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                     {% endif %}
-                      {% if 9 < apps|length < 13 %}
-                        <tr style="width: 100%">
-                            {% for app in apps[:3] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                        <tr style="width: 100%">
-                            {% for app in apps[3:6] %}
-                               <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                         <tr style="width: 100%">
-                            {% for app in apps[6:9] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                        <tr style="width: 100%">
-                            {% for app in apps[9:] %}
-                                <div style="padding: 0.1em;padding-right: 0.6em;width: 31.6%;display: inline-block"  first-category-id="{{ first_category_id }}" second-category-id="{{ second_category_id }}" app-id="{{ app.id }}"><div style=""><a href="{{ url_for('main.show_app',app_id=app.id) }}" style="color: #777777;text-decoration: none;"><div style="background-color: #e3e5e8;width: 99%;margin-left: 0.4em;padding: 0.1em;padding-right: 0.1em" onmouseover="this.className='goodchange'" onmouseout="this.className='good'"><h5 style="font-size: 1.28em;margin-top: 0.2em;margin-left: auto">【{{ app.name }}】</h5><div style="margin-left: 0.52em;display: inline-block;margin-bottom: 0.4em;"><img style="margin-top: 0.1em" class="codeicon codeicon-36" height="32em" width="32em" src="{{ app.icon_url }}"></div><strong style="width: 77%;float: right;font-size: 0.83em;margin-right: 1.14%;margin-left: 0em">{{ app.simple_say }}</strong></div></a></div></div>
-                            {% endfor %}
-                        </tr>
-                      {% endif %}
-                {% else %}
-                    <div style="margin-left: 10%;font-size: 1.5em">暂无软件</div>
-                {% endif %}
-            </table>
+import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
+import tornado.httpclient
 
-        <div style="position: absolute;top:43em;left: 49%" >{% if filter == 'null' %}{{ render_page_data(pagination,'main.apps_BySecond',data={'first_id':first_category_id,'second_id':second_category_id,'system':system}) }}{% else %}{{ render_page_data(pagination,'main.filter_app',data={'first_id':first_category_id,'second_id':second_category_id,'system':system,'filter':filter}) }}{% endif %}</div>
+import urllib.parse
+import json
+import datetime
+import time
+
+from tornado.options import define, options
+define("port", default=8000, help="run on the given port", type=int)
+
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        query = self.get_argument('q')
+        client = tornado.httpclient.HTTPClient()
+        now = datetime.datetime.utcnow()
+        request_count = 10
+        for i in range(request_count):
+            response = client.fetch("https://suggest.taobao.com/sug?code=utf-8&q=" + query)
+            body = json.loads(response.body)
+            #result_count = len(body['result'])
+        after_date = datetime.datetime.utcnow()
+        seconds_diff = time.mktime(after_date.timetuple()) - \
+                time.mktime(now.timetuple())
+        #print(result_count)
+        tweets_per_second = request_count / seconds_diff
+        self.write("""
+<div style="text-align: center">
+    <div style="font-size: 72px">%s</div>
+    <div style="font-size: 144px">%.02f</div>
+    <div style="font-size: 24px">request per second</div>
+</div>""" % (query, tweets_per_second))
+
+if __name__ == "__main__":
+    tornado.options.parse_command_line()
+    app = tornado.web.Application(handlers=[(r"/", IndexHandler)])
+    http_server = tornado.httpserver.HTTPServer(app)
+    http_server.listen(options.port)
+    tornado.ioloop.IOLoop.instance().start()
